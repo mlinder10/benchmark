@@ -21,17 +21,17 @@ export function flattenResponse(res: any): Item[] {
         }
 
         if (column.type === "mirror") {
-          // if (
-          //   column.display_value === null ||
-          //   column.display_value === undefined ||
-          //   column.display_value === ""
-          // )
-          //   continue;
-          // flattenedRes.push({
-          //   gid: item.group.id,
-          //   cid: column.id,
-          //   value: parseFloat(column.display_value),
-          // });
+          if (
+            column.display_value === null ||
+            column.display_value === undefined ||
+            column.display_value === ""
+          )
+            continue;
+          flattenedRes.push({
+            gid: item.group.id,
+            cid: column.id,
+            value: parseFloat(column.display_value),
+          });
         }
       }
     }
