@@ -28,7 +28,6 @@ export default function useMonday() {
 
     monday.listen("settings", (data) => {
       setSettings(data.data);
-      console.log(data.data);
     });
   }, []);
 

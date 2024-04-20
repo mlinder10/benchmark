@@ -9,8 +9,8 @@ export default function App() {
   const symbol = settings.unit.symbol;
   const text =
     settings.unit.direction === "right"
-      ? `${func}${cUnit === "" ? symbol : cUnit}`
-      : `${cUnit === "" ? symbol : cUnit}${func}`;
+      ? `${func.toLocaleString()}${cUnit === "" ? symbol : cUnit}`
+      : `${cUnit === "" ? symbol : cUnit}${func.toLocaleString()}`;
 
   return <main className={theme}>{text}</main>;
 }
