@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Theme } from "./types";
+import { Item, Theme } from "./types";
 import { monday } from "./constants";
 
 export default function useMonday() {
   const [theme, setTheme] = useState<Theme>("light");
   const [boardIds, setBoardIds] = useState<number | undefined>(undefined);
+  const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
     monday.listen("context", (data) => {
-      console.log(data);
       setTheme(data.data.theme as Theme);
       const unchecked = data.data as any;
       setBoardIds(unchecked.boardIds);
@@ -40,7 +40,25 @@ export default function useMonday() {
             }
           }
         }
-            `);
+        `);
+
+        let flattened_res = [];
+
+        for (const board of res.data.boards) {
+          for (const item of board.items_page.items) {
+            let flattened = {
+              gid: item.group.id,
+              cid: item.column_values[0].id,
+              text: item.column_values[0].text,
+              type: item.column_values[0].type,
+              display_value: item.column_values[0].display_value,
+            };
+            flattened_res.push(flattened);
+          }
+        }
+
+        setItems(flattened_res);
+        console.log(flattened_res);
         console.log(res);
       } catch (err) {
         console.log(err);
@@ -50,5 +68,5 @@ export default function useMonday() {
     queryBoards();
   }, [boardIds]);
 
-  return { theme };
+  return { items, theme };
 }
