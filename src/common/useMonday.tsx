@@ -57,6 +57,7 @@ export default function useMonday() {
           }
         }
         `);
+        console.log(res)
 
         const flat = flattenResponse(res);
         setItems(flat);
