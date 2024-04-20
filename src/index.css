@@ -12,7 +12,7 @@
   --acc-deep: rgb(0, 96, 185);
 }
 
-.light {
+:root:has(main.light) {
   --bg: rgb(255, 255, 255);
   --txt: rgb(0, 0, 0);
   --txt-sec: rgb(0, 0, 0, 0.5);
@@ -20,7 +20,7 @@
   --border: rgb(100, 100, 100, 0.5);
 }
 
-.dark {
+:root:has(main.dark) {
   --bg: rgb(24, 27, 52);
   --txt: rgb(255, 255, 255);
   --txt-sec: rgb(255, 255, 255, 0.5);
@@ -28,7 +28,7 @@
   --border: rgb(100, 100, 100, 0.5);
 }
 
-.black {
+:root:has(main.black) {
   --bg: rgb(17, 17, 17);
   --txt: rgb(255, 255, 255);
   --txt-sec: rgb(255, 255, 255, 0.5);
@@ -36,7 +36,7 @@
   --border: rgb(100, 100, 100);
 }
 
-main {
+body {
   background-color: var(--bg);
   color: var(--txt);
 }
