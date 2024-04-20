@@ -26,7 +26,7 @@ export default function useMonday() {
                             group {
                                 id
                             }
-                            column_values {
+                            column_values(types: [numbers, mirror, formula]) {
                                 id
                                 text
                                 value
