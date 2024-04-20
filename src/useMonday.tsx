@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
-import { Item, Theme } from "./types";
+import { Theme, Values } from "./types";
 import { monday } from "./constants";
+import {
+  avg,
+  count,
+  flattenResponse,
+  max,
+  median,
+  min,
+  sum,
+} from "./functions";
 
 export default function useMonday() {
   const [theme, setTheme] = useState<Theme>("light");
   const [boardIds, setBoardIds] = useState<number | undefined>(undefined);
-  const [items, setItems] = useState<Item[]>([]);
+  const [values, setValues] = useState<Values | null>(null);
 
   useEffect(() => {
     monday.listen("context", (data) => {
@@ -42,25 +51,18 @@ export default function useMonday() {
         }
         `);
 
-        let flattened_res = [];
+        const flat = flattenResponse(res);
+        setValues({
+          sum: sum(flat),
+          count: count(flat),
+          avg: avg(flat),
+          median: median(flat),
+          min: min(flat),
+          max: max(flat),
+        });
 
-        for (const board of res.data.boards) {
-          for (const item of board.items_page.items) {
-            for (const column of item.column_values) {
-              flattened_res.push({
-                gid: item.group.id,
-                cid: column.id,
-                text: column.text,
-                type: column.type,
-                display_value: column.display_value,
-              });
-            }
-          }
-        }
-
-        setItems(flattened_res);
-        console.log(flattened_res);
-        console.log(res);
+        console.log(flat)
+        console.log(values)
       } catch (err) {
         console.log(err);
       }
@@ -69,5 +71,5 @@ export default function useMonday() {
     queryBoards();
   }, [boardIds]);
 
-  return { items, theme };
+  return { values, theme };
 }

@@ -3,7 +3,14 @@ export type Theme = "light" | "dark" | "black";
 export type Item = {
   gid: string;
   cid: string;
-  text: string | null;
-  type: string;
-  display_value: string | null | undefined;
+  value: number;
+};
+
+export type Values = {
+  sum: number;
+  count: number;
+  avg: number;
+  median: number;
+  min: number;
+  max: number;
 };
