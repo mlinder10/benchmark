@@ -31,7 +31,6 @@ export default function useMonday() {
                 column_values(types: [numbers, mirror]) {
                   id
                   text
-                  value
                   type
                   ... on MirrorValue {
                     display_value
@@ -52,7 +51,6 @@ export default function useMonday() {
                 gid: item.group.id,
                 cid: column.id,
                 text: column.text,
-                value: column.value,
                 type: column.type,
                 display_value: column.display_value,
               });
