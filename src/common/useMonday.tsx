@@ -99,7 +99,7 @@ export default function useMonday() {
         setFunc(v.max);
         break;
       default:
-        setFunc(0);
+        setFunc(null);
         break;
     }
   }, [items]);
