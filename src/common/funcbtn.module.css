@@ -1,0 +1,41 @@
+.container {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  translate: -50%;
+}
+
+.open-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1rem;
+  color: var(--txt);
+  background-color: var(--acc);
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+}
+.open-btn:hover,
+.open-btn:focus {
+  background-color: var(--acc-deep);
+}
+
+.options {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  translate: -50%;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 0.5em;
+  background-color: var(--bg-sec);
+  border: thin solid var(--border);
+}
+.options.open {
+  opacity: 1;
+  pointer-events: all;
+}

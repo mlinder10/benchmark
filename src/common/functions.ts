@@ -18,9 +18,7 @@ export function flattenResponse(res: any): Item[] {
             cid: column.id,
             value: parseFloat(column.text),
           });
-        }
-
-        if (column.type === "mirror") {
+        } else {
           if (
             column.display_value === null ||
             column.display_value === undefined ||
@@ -49,6 +47,7 @@ export function count(items: Item[]) {
 }
 
 export function avg(items: Item[]) {
+  if (items.length === 0) return 0;
   return sum(items) / count(items);
 }
 
