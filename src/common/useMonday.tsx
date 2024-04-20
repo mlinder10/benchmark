@@ -17,7 +17,7 @@ export default function useMonday() {
   const [items, setItems] = useState<Item[]>([]);
   const [values, setValues] = useState<Values | null>(null);
   const [settings, setSettings] = useState<Record<string, any> | null>(null);
-  const [func, setFunc] = useState<number>(0);
+  const [func, setFunc] = useState<number | null>(null);
 
   useEffect(() => {
     monday.listen("context", (data) => {

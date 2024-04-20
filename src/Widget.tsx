@@ -1,10 +1,10 @@
 type WidgetProps = {
-  func: number;
+  func: number | null;
   settings: Record<string, any> | null;
 };
 
 export default function Widget({ func, settings }: WidgetProps) {
-  if (settings === null) return <>Loading...</>;
+  if (settings === null || func === null) return <>Loading...</>;
 
   const cUnit = settings.unit.custom_unit;
   const symbol = settings.unit.symbol;

@@ -1,4 +1,4 @@
-import useMonday from "./useMonday";
+import useMonday from "./common/useMonday";
 import Widget from "./Widget";
 
 export default function App() {
