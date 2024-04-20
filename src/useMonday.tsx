@@ -20,24 +20,26 @@ export default function useMonday() {
       if (!boardIds) return;
       try {
         const res = await monday.api(`
-                query {
-                    boards(ids: ${JSON.stringify(boardIds)}) {
-                        id
-                        items_page {
-                            items {
-                                group {
-                                    id
-                                }
-                                column_values(types: [numbers, mirror, formula]) {
-                                    id
-                                    text
-                                    value
-                                    type
-                                }
-                            }
-                        }
-                    }
+        query {
+          boards(ids: ${JSON.stringify(boardIds)}) {
+                id
+            items_page {
+              items {
+                group {
+                  id
                 }
+                column_values(types: [numbers, mirror]) {
+                  id
+                  text
+                  type
+                  ... on MirrorValue {
+                    display_value
+                  }
+                }
+              }
+            }
+          }
+        }
             `);
         console.log(res);
       } catch (err) {
