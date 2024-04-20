@@ -1,7 +1,7 @@
 import useMonday from "./useMonday";
 
 export default function App() {
-  const { theme } = useMonday();
+  const { theme, func } = useMonday();
 
-  return <div className={theme}>app</div>;
+  return <div className={theme}>{func}</div>;
 }

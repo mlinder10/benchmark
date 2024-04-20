@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Theme, Values } from "./types";
+import { Item, Theme, Values } from "./types";
 import { monday } from "./constants";
 import {
   avg,
@@ -14,8 +14,10 @@ import {
 export default function useMonday() {
   const [theme, setTheme] = useState<Theme>("light");
   const [boardIds, setBoardIds] = useState<number | undefined>(undefined);
+  const [items, setItems] = useState<Item[]>([]);
   const [values, setValues] = useState<Values | null>(null);
   const [settings, setSettings] = useState<Record<string, any> | null>(null);
+  const [func, setFunc] = useState<number>(0);
 
   useEffect(() => {
     monday.listen("context", (data) => {
@@ -26,7 +28,7 @@ export default function useMonday() {
 
     monday.listen("settings", (data) => {
       setSettings(data.data);
-      console.log(data.data)
+      console.log(data.data);
     });
   }, []);
 
@@ -58,18 +60,7 @@ export default function useMonday() {
         `);
 
         const flat = flattenResponse(res);
-        const v = {
-          sum: sum(flat),
-          count: count(flat),
-          avg: avg(flat),
-          median: median(flat),
-          min: min(flat),
-          max: max(flat),
-        };
-        setValues(v);
-
-        console.log(flat);
-        console.log(v);
+        setItems(flat);
       } catch (err) {
         console.log(err);
       }
@@ -78,5 +69,41 @@ export default function useMonday() {
     queryBoards();
   }, [boardIds]);
 
-  return { values, theme, settings };
+  useEffect(() => {
+    const v = {
+      sum: sum(items),
+      count: count(items),
+      avg: avg(items),
+      median: median(items),
+      min: min(items),
+      max: max(items),
+    };
+    setValues(v);
+
+    switch (settings?.function) {
+      case "sum":
+        setFunc(v.sum);
+        break;
+      case "count":
+        setFunc(v.count);
+        break;
+      case "avg":
+        setFunc(v.avg);
+        break;
+      case "median":
+        setFunc(v.median);
+        break;
+      case "min":
+        setFunc(v.min);
+        break;
+      case "max":
+        setFunc(v.max);
+        break;
+      default:
+        setFunc(0);
+        break;
+    }
+  }, [items]);
+
+  return { values, theme, settings, func };
 }
