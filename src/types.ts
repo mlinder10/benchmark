@@ -5,5 +5,5 @@ export type Item = {
   cid: string;
   text: string | null;
   type: string;
-  display_value: string | null;
+  display_value: string | null | undefined;
 };

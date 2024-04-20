@@ -22,7 +22,7 @@ export default function useMonday() {
         const res = await monday.api(`
         query {
           boards(ids: ${JSON.stringify(boardIds)}) {
-                id
+            id
             items_page {
               items {
                 group {
@@ -46,14 +46,15 @@ export default function useMonday() {
 
         for (const board of res.data.boards) {
           for (const item of board.items_page.items) {
-            let flattened = {
-              gid: item.group.id,
-              cid: item.column_values[0].id,
-              text: item.column_values[0].text,
-              type: item.column_values[0].type,
-              display_value: item.column_values[0].display_value,
-            };
-            flattened_res.push(flattened);
+            for (const column of item.column_values) {
+              flattened_res.push({
+                gid: item.group.id,
+                cid: column.id,
+                text: column.text,
+                type: column.type,
+                display_value: column.display_value,
+              });
+            }
           }
         }
 
