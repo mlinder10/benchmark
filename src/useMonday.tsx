@@ -87,7 +87,7 @@ export default function useMonday() {
       case "count":
         setFunc(v.count);
         break;
-      case "avg":
+      case "average":
         setFunc(v.avg);
         break;
       case "median":
