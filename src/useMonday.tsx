@@ -52,17 +52,18 @@ export default function useMonday() {
         `);
 
         const flat = flattenResponse(res);
-        setValues({
+        const v = {
           sum: sum(flat),
           count: count(flat),
           avg: avg(flat),
           median: median(flat),
           min: min(flat),
           max: max(flat),
-        });
+        };
+        setValues(v);
 
-        console.log(flat)
-        console.log(values)
+        console.log(flat);
+        console.log(v);
       } catch (err) {
         console.log(err);
       }
