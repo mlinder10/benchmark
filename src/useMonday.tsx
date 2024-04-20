@@ -15,12 +15,18 @@ export default function useMonday() {
   const [theme, setTheme] = useState<Theme>("light");
   const [boardIds, setBoardIds] = useState<number | undefined>(undefined);
   const [values, setValues] = useState<Values | null>(null);
+  const [settings, setSettings] = useState<Record<string, any> | null>(null);
 
   useEffect(() => {
     monday.listen("context", (data) => {
       setTheme(data.data.theme as Theme);
       const unchecked = data.data as any;
       setBoardIds(unchecked.boardIds);
+    });
+
+    monday.listen("settings", (data) => {
+      setSettings(data.data);
+      console.log(data.data)
     });
   }, []);
 
@@ -72,5 +78,5 @@ export default function useMonday() {
     queryBoards();
   }, [boardIds]);
 
-  return { values, theme };
+  return { values, theme, settings };
 }
