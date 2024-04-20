@@ -78,31 +78,35 @@ export default function useMonday() {
       max: max(items),
     };
     setValues(v);
+  }, [items]);
 
-    switch (settings?.function) {
+  useEffect(() => {
+    if (values === null || settings === null) return;
+
+    switch (settings.function) {
       case "sum":
-        setFunc(v.sum);
+        setFunc(values.sum);
         break;
       case "count":
-        setFunc(v.count);
+        setFunc(values.count);
         break;
       case "average":
-        setFunc(v.avg);
+        setFunc(values.avg);
         break;
       case "median":
-        setFunc(v.median);
+        setFunc(values.median);
         break;
       case "min":
-        setFunc(v.min);
+        setFunc(values.min);
         break;
       case "max":
-        setFunc(v.max);
+        setFunc(values.max);
         break;
       default:
         setFunc(null);
         break;
     }
-  }, [items]);
+  }, [values, settings]);
 
   return { values, theme, settings, func };
 }
