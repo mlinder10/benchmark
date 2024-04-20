@@ -53,14 +53,17 @@ export function avg(items: Item[]) {
 }
 
 export function min(items: Item[]) {
+  if (items.length === 0) return 0;
   return items[0].value;
 }
 
 export function max(items: Item[]) {
+  if (items.length === 0) return 0;
   return items[items.length - 1].value;
 }
 
 export function median(items: Item[]) {
+  if (items.length === 0) return 0;
   const middle = Math.floor(items.length / 2);
   if (items.length % 2 === 0)
     return (items[middle - 1].value + items[middle].value) / 2;
